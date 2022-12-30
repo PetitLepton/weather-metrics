@@ -1,0 +1,13 @@
+name: weather-metrics
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - black=22.10.0
+  - fastapi
+  - isort=5.10.1
+  - pandas=1.5.2
+  - pydantic=1.10.2
+  - python=3.10
+  - uvicorn
+  - pandera
