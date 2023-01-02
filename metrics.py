@@ -75,15 +75,15 @@ class MetricsRegistry:
 
     # This singleton keeps track of the names used for partial registries enum. It
     # avoids conflicts in case a name is already used.
-    _registries_prefixes: Dict[str, str] = {}
+    _registries_prefixes: Set[str] = set()
 
     @classmethod
     def _get_prefixes(cls) -> Set[str]:
-        return set(cls._registries_prefixes.keys())
+        return set(cls._registries_prefixes)
 
     @classmethod
     def _add_prefix(cls, prefix: str) -> None:
-        cls._registries_prefixes[prefix] = prefix
+        cls._registries_prefixes.add(prefix)
 
     def __init__(self, metrics: List[Metrics], prefix: Optional[str] = None) -> None:
         self._metrics: Dict[str, Metrics] = {
@@ -94,7 +94,7 @@ class MetricsRegistry:
 
         if self._prefix in self._get_prefixes():
             raise ValueError(
-                f"Prefix {prefix} is already used. Please use a prefix different from {', '.join(self._registries_prefixes.keys())}"
+                f"Prefix {prefix} is already used. Please use a prefix different from {', '.join(self._registries_prefixes)}"
             )
         else:
             self._add_prefix(prefix=self._prefix)
